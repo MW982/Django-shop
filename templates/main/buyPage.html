@@ -1,0 +1,10 @@
+{% extends "main/main.html" %}
+
+{% block content %}
+<form method="POST">
+  {% csrf_token %}
+  {{form}}  
+  <button class="btn" type="submit">Buy</button> 
+</form>
+
+{% endblock %}

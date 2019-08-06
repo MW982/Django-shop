@@ -1,0 +1,13 @@
+{
+    "Products": [
+        {
+            "title": "AMD RANDOM2",
+            "price": 799.9
+        },
+        {
+            "title": "INTEL RANDOM3",
+            "price": 999.99
+        }
+    ]
+
+}

@@ -1,38 +1,39 @@
-from django.shortcuts import render, redirect
+import datetime
+
+from django.shortcuts import render, redirect, HttpResponseRedirect
 
 from product.models import Product
 
+from main.models import User
 from main.forms import UserDataForm
 
+def read_cart_cookie(cookie):
+    items = []
+    totalCost = 0 
+    if cookie:
+        cookie = cookie[:-1].split('/')
+        cookie = dict((x,cookie.count(x)) for x in set(cookie))
+        p = Product.objects.all()
+        for key in cookie:
+            try:
+                Item = p.get(id=key)
+                #print('item', Item)
+                items.append([Item.title, cookie[key], str(Item.price)])
+                totalCost += cookie[key] * Item.price
+            except:
+                pass
 
+    return items, totalCost
 
 def cart(request):
-    Items = request.COOKIES.get('cartIds')
-    totalCost = 0
-    print(Items)
-    Fitems = []
+    cookie = request.COOKIES.get('cartIds')
+    print(cookie)
     if request.method == 'POST':
         print('CHECK CART')
         return redirect('cart:buyPage')
     
-    if Items:
-        Items = Items[:-1].split('/')
-        Items = dict((x,Items.count(x)) for x in set(Items))
-        p = Product.objects.all()
-        totalCost = 0
-        for key in Items:
-            try:
-                Item = p.get(id=key)
-                print('item', Item)
-                Fitems.append([Item.title, Items[key], Item.price])
-                totalCost += Items[key] * Item.price
-            except:
-                pass            
-
-    print('Fi', Fitems)
-
-    return render(request, 'main/cart.html', {'Items': Fitems, 'totalCost': totalCost})
-
+    items, totalCost = read_cart_cookie(cookie)
+    return render(request, 'cart/cart.html', {'Items': items, 'totalCost': totalCost})
 
 def addCart(request, cart_id):
     html = redirect('product:homepage')
@@ -57,18 +58,33 @@ def addCart(request, cart_id):
         html.set_cookie('cartIds', cartIds, 3600 * 24 )
     return html 
 
-
 def buyPage(request):
     if request.method == 'POST':
         form = UserDataForm(request.POST)
         if form.is_valid():
+            time = datetime.datetime.now()
             print('form valid')
             email = form.cleaned_data.get('email')
-            user = User.objects.filter(email=email)
+            user = User.objects.get(email=email)
+
+            cookie = request.COOKIES.get('cartIds')
+            items, totalCost = read_cart_cookie(cookie)
+            #print(items)
+            data = str({'items': items, 'time': str(time), 'totalCost': str(totalCost)})
+            #file = open('history.json', 'w+')
+            #file.write(str(data))
+
+            user.set_buyRecord(data)
+            user.save()
+            print(user.get_buyRecord())
+            print(user.buyRecord)
+
+            respone = render(request, 'cart/done.html', {})
+            respone.delete_cookie('cartIds')
+            return respone
         else:
             print('form invalid')
 
-    
     form = UserDataForm
-    return render(request, 'main/buyPage.html', {'form': form})
+    return render(request, 'cart/buyPage.html', {'form': form})
 

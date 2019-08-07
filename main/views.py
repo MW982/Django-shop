@@ -137,7 +137,7 @@ def resetPass(request, resetUUID):
 
     return redirect('product:homepage')
 
-def activate(reqeust, activateUUID):
+def activate(request, activateUUID):
     user = User.objects.get(linkID=activateUUID)
     user.activated = True
     user.save()

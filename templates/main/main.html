@@ -13,22 +13,21 @@
     <script src="{% static 'main/js/materialize.js' %}" ></script>
 
   </head>
-
-
   <body>
 
-        {% include "main/includes/navbar.html" %} 
+    {% include "main/includes/navbar.html" %} 
 
-        <div class="container" >
-          <br>
-          {% block content %}
+    <main>
+      <div class="container" >
+        <br>
+        {% block content %}
 
-          {% endblock %}
-          <br>
-        </div>
+        {% endblock %}
+        <br>
+      </div>
+    </main>
 
-       <!-- {% include "main/includes/footer.html" %} -->
-
+    {% include "main/includes/footer.html" %} 
 
 
   </body>

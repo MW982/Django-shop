@@ -32,15 +32,15 @@
       </table>
     </div>
     <div class="col s6">
-      <p> BLa </p>
       <form method='POST'>
         {% csrf_token %}
+        <br><label for="id_discount">Discount code:</label><input type="text" name="discount" id="discount_code"><br><br>
         <button style="position: absolute;width: 30%" class="btn" type="submit">Buy</button> 
       </form>
     </div>
   </div>
 {% else %}
-    <p align='middle' style='font-size:25px'>Your cart is empty.</p>
+  <p align='middle' style='font-size:25px'>Your cart is empty.</p>
 {% endif %}
 
 {% endblock %}

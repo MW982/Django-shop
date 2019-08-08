@@ -14,6 +14,4 @@ Django-shop aims to be fully functioning shop.
 
 # Contributing
 
-# License
-
 # Contact

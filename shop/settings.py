@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'cart.apps.CartConfig',
     'product.apps.ProductConfig',
     'main.apps.MainConfig',
 ]

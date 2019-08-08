@@ -60,7 +60,7 @@ def loginView(request):
 
 def accountView(request):
     if request.user.is_authenticated:
-        print(request.get_host())
+    #    print(request.get_host())
         form = UserDataForm
         return render(request, 'main/account.html', {'form': form})
     else:
@@ -115,7 +115,6 @@ def resetPassView(request, resetUUID):
         user = User.objects.get(linkID=resetUUID)
     except:
         return redirect('product:homepage')
-
 #    print(now() - user.resetTime )
     tdiff = now() - user.resetTime
     tdiff = tdiff.total_seconds()

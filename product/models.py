@@ -2,8 +2,6 @@ import json
 
 from django.db import models
 
-# Create your models here.
-
 
 class Product(models.Model):
     title  = models.CharField(max_length=200)
@@ -20,11 +18,15 @@ class Product(models.Model):
             products = json.load(products_file)
 
         for item in products['Products']:
-            title = item['title']
-        #    sdesc = item['sdesc']
-            price = item['price']
-            Product(title=title, price=price).save()
-        #    print(item['title'])
+            title  = item['title']
+            sdesc  = item['sdesc']
+            desc   = item['desc']
+            price  = item['price']
+            amount = item['amount']
+            sold   = item['sold']
+            rating = item['rating']
+            img    = item['img']
+            Product(title=title, sdesc=sdesc, desc=desc, price=price, amount=amount, sold=sold, rating=rating, img=img).save()
 
         return 
 

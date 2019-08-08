@@ -77,7 +77,6 @@ class registerViewTestCase(LiveServerTestCase):
         data = {'username': 'bolek', 'email': 'fake@gmail.com', 'password1': 'useruser123', 'password2': 'useruser123'}
         self.helper_register(**data)
         self.assertTrue(User.objects.filter(username=data['username']).exists())
-        self.deleteUser()
         self.tearDown()
 
     def test_wrong_register(self):
@@ -98,16 +97,13 @@ class registerViewTestCase(LiveServerTestCase):
         self.assertFalse(User.objects.filter(username=data['username']).exists())
         self.tearDown()
 
-    def deleteUser(self):
-        User.objects.all().get(username='bolek').delete()
-
     def tearDown(self):
         self.driver.quit()
 
 class loginViewTestCase(LiveServerTestCase):
     def setUp(self):
         self.driver = webdriver.Firefox()
-        self.data = {'username': 'UserOne', 'email': 'fake@gmail.com', 'password1': 'useruseruser', 'password2': 'useruseruser'}
+        self.data = {'username': 'UserOne', 'password': 'useruseruser'}
         self.createUser(**self.data)
 
     def helper_login(self, username, password):
@@ -118,9 +114,8 @@ class loginViewTestCase(LiveServerTestCase):
 
     def test_correct_login(self):
     #    print(User.objects.all().get(username=data['username']).username, User.objects.all().get(username=data['username']).password)
-        self.helper_login(self.data['username'], self.data['password1'])
+        self.helper_login(self.data['username'], self.data['password'])
         self.driver.find_element_by_link_text(f'Account: {self.data["username"]}')
-        self.deleteUser()
         self.tearDown()
 
     def test_wrong_pass_login(self):
@@ -128,30 +123,17 @@ class loginViewTestCase(LiveServerTestCase):
     #    print(self.driver)
     #    print(self.driver.current_url)
         assert self.driver.current_url == f'{self.live_server_url}/login/'
-        self.deleteUser()
         self.tearDown()
 
     def test_no_user_login(self):
-        self.helper_login(self.data['username'], self.data['password1'])
+        self.helper_login(self.data['username'], self.data['password'])
         self.tearDown()
 
-    def createUser(self, username, email, password1, password2):
-        """
-        User.objects.create doesnt work (probably beacuse it doesnt hash the passwords), 
-        so in order to register the user i used selenium.
-        """
-        self.driver.get(f'{self.live_server_url}/register/')
-        self.driver.find_element_by_id('id_username').send_keys(username)
-        self.driver.find_element_by_id('id_email').send_keys(email)  
-        self.driver.find_element_by_id('id_password1').send_keys(password1)
-        self.driver.find_element_by_id('id_password2').send_keys(password2)
-        self.driver.find_element_by_class_name('btn').click()
-        user = User.objects.all().get(username=username)
+    def createUser(self, username, password):
+        user = User.objects.create(username=username)
+        user.set_password(password)
         user.activated = True
         user.save()
-
-    def deleteUser(self):
-        User.objects.all().get(username='UserOne').delete()
 
     def tearDown(self):
         self.driver.quit()

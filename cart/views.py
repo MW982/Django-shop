@@ -3,7 +3,7 @@ import datetime
 from django.shortcuts import render, redirect, HttpResponseRedirect
 
 from product.models import Product
-
+from cart.models import TransactionHistory
 from main.models import User
 from main.forms import UserDataForm
 
@@ -53,7 +53,6 @@ def addCart(request, cart_id):
         else:
             cartIds = ''
             cartIds += str(cart_id) + '/'
-
         #               'name',     value,  time [s] 
         html.set_cookie('cartIds', cartIds, 3600 * 24 )
     return html 
@@ -63,21 +62,16 @@ def buyPage(request):
         form = UserDataForm(request.POST)
         if form.is_valid():
             time = datetime.datetime.now()
-            print('form valid')
+        #    print('form valid')
             email = form.cleaned_data.get('email')
             user = User.objects.get(email=email)
 
             cookie = request.COOKIES.get('cartIds')
             items, totalCost = read_cart_cookie(cookie)
-            #print(items)
-            data = str({'items': items, 'time': str(time), 'totalCost': str(totalCost)})
-            #file = open('history.json', 'w+')
-            #file.write(str(data))
-
-            user.set_buyRecord(data)
-            user.save()
-            print(user.get_buyRecord())
-            print(user.buyRecord)
+            transHistory = TransactionHistory(totalCost=totalCost, items=items, timeHis=time)
+            transHistory.save()
+            user.buyRecord.add(transHistory)
+            print(user.buyRecord.all())
 
             respone = render(request, 'cart/done.html', {})
             respone.delete_cookie('cartIds')

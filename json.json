@@ -1,12 +1,34 @@
 {
     "Products": [
         {
-            "title": "AMD RANDOM2",
-            "price": 799.9
+            "title": "AMD RYZEN",
+            "sdesc": "Fajny Procek",
+            "desc": "Bardzo Fajny Procek",
+            "price": 799.99,
+            "amount": 100,
+            "sold": 0,
+            "rating": 0,
+            "img": "amd.jpg"
         },
         {
-            "title": "INTEL RANDOM3",
-            "price": 999.99
+            "title": "INTEL I5",
+            "sdesc": "Procek",
+            "desc": "Fajny Procek",
+            "price": 599.99,
+            "amount": 100,
+            "sold": 0,
+            "rating": 0,
+            "img": "inteli5.jpg"
+        },
+        {
+            "title": "INTEL I9",
+            "sdesc": "Drogi Procek",
+            "desc": "Drogi, Fajny Procek",
+            "price": 999.99,
+            "amount": 100,
+            "sold": 0,
+            "rating": 0,
+            "img": "inteli9.jpg"
         }
     ]
 

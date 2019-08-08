@@ -17,7 +17,17 @@ SITE = '127.0.0.1:8000'
 EMAIL = 'justemaildjango@gmail.com'
 
 
-def register(request):
+
+def sendActivationEmail(username):
+    user = User.objects.get(username=username)
+    emailto = user.email
+    title = f'Hello {username}'
+    linkActive = user.linkID 
+    message = f'Here is your activation link. \n Link: http://{SITE}/active/{linkActive}'
+    res = send_mail(title, message, EMAIL, [emailto])
+
+
+def registerView(request):
     if request.method == 'POST':
         form = NewUserForm(request.POST)
         if form.is_valid():
@@ -48,8 +58,7 @@ def loginView(request):
 
     return render(request, 'main/login.html', {'form': form})
 
-
-def account(request):
+def accountView(request):
     if request.user.is_authenticated:
         print(request.get_host())
         form = UserDataForm
@@ -61,15 +70,7 @@ def logoutView(request):
     logout(request)
     return redirect('product:homepage')
 
-def sendActivationEmail(username):
-    user = User.objects.get(username=username)
-    emailto = user.email
-    title = f'Hello {username}'
-    linkActive = user.linkID 
-    message = f'Here is your activation link. \n Link: http://{SITE}/active/{linkActive}'
-    res = send_mail(title, message, EMAIL, [emailto])
-
-def forgotUser(request):
+def forgotUserView(request):
     if request.method == 'POST':
         form = ForgotForm(request.POST)
         if form.is_valid():
@@ -84,7 +85,7 @@ def forgotUser(request):
     form = ForgotForm
     return render(request, 'main/forgot.html', {'form': form})
 
-def forgotPass(request):
+def forgotPassView(request):
     if request.method == 'POST':
         form = ForgotForm(request.POST)
         if form.is_valid():
@@ -106,10 +107,10 @@ def forgotPass(request):
     form = ForgotForm
     return render(request, 'main/forgot.html', {'form': form})
 
-def changePass(request, k_user):
+def changePassView(request, k_user):
     return render(request, 'main/changePass.html', {'user': user})
 
-def resetPass(request, resetUUID):
+def resetPassView(request, resetUUID):
     try:
         user = User.objects.get(linkID=resetUUID)
     except:
@@ -137,7 +138,7 @@ def resetPass(request, resetUUID):
 
     return redirect('product:homepage')
 
-def activate(request, activateUUID):
+def activateView(request, activateUUID):
     user = User.objects.get(linkID=activateUUID)
     user.activated = True
     user.save()

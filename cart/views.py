@@ -37,8 +37,6 @@ def cart(request):
 
 def addCart(request, cart_id):
     html = redirect('product:homepage')
-    #html = render(request, 'main/home.html', context={})
-    #html = HttpResponse()
     #FIX
     i = 1
     cartIds = request.COOKIES.get('cartIds')

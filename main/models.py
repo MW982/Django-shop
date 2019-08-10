@@ -13,6 +13,6 @@ class User(AbstractUser):
   linkID    = models.UUIDField(primary_key=False,default=uuid4, editable=True, unique=False)
   activated = models.BooleanField(default=False)
   resetTime = models.DateTimeField(default=now, editable=True)
-  buyRecord = models.ManyToManyField(TransactionHistory)
+  record = models.ManyToManyField(TransactionHistory)
 
 

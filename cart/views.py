@@ -68,8 +68,8 @@ def buyPage(request):
             items, totalCost = read_cart_cookie(cookie)
             transHistory = TransactionHistory(totalCost=totalCost, items=items, timeHis=time)
             transHistory.save()
-            user.buyRecord.add(transHistory)
-            print(user.buyRecord.all())
+            user.record.add(transHistory)
+            print(user.record.all())
 
             respone = render(request, 'cart/done.html', {})
             respone.delete_cookie('cartIds')

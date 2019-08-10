@@ -59,12 +59,28 @@ def loginView(request):
     return render(request, 'main/login.html', {'form': form})
 
 def accountView(request):
+    return render(request, 'main/account.html', {})
+
+def accountSettingsView(request):
     if request.user.is_authenticated:
-    #    print(request.get_host())
         form = UserDataForm
-        return render(request, 'main/account.html', {'form': form})
+        return render(request, 'main/accountSettings.html', {'form': form})
     else:
         return redirect('product:homepage')
+
+def accountTransactionsView(request):
+    if request.user.is_authenticated:
+        user = User.objects.all().get(username=request.user.username)
+        record = []
+        for transaction in user.record.all():
+            record.append(transaction)
+            print(transaction.totalCost)
+        context = {'record': record}
+        print(context)
+        return render(request, 'main/accountTransactions.html', context)
+    else:
+        return redirect('product:homepage')
+
 
 def logoutView(request):
     logout(request)

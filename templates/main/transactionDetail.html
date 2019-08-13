@@ -1,0 +1,31 @@
+{% extends "main/main.html" %}
+
+
+{% block content %}
+  <div class="row">
+    <div class="col s12">
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Num</th>
+            <th>Value</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for record in transRecord.items %}
+          <tr>
+            <td>{{ record }}</td>
+            <td>{{ record }}</td>
+            <td>{{ record }} $</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+          <tr>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+{% endblock %}

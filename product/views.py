@@ -5,7 +5,10 @@ from product.models import Product
 
 
 def homepage(request):
-    return render(request, 'product/home.html', {'Products': Product.objects.all})
+    context = {'Products': Product.objects.all}
+    return render(request, 'product/home.html', context)
+
 
 def detail(request, p_id):
-    return render(request, 'product/item.html', {'Product': Product.objects.get(id=p_id)})
+    context = {'Product': Product.objects.get(id=p_id)}
+    return render(request, 'product/item.html', context)

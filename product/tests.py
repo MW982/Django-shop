@@ -1,11 +1,10 @@
 from django.test import TestCase
-#from django.core.urlresolvers import reverse
+# from django.core.urlresolvers import reverse
 
 from .models import Product
 
 
 class ProductTestCase(TestCase):
-   
     def helper_Product(self, title='test', price=999):
         return Product.objects.create(title=title, price=price)
 
@@ -21,6 +20,3 @@ class ViewsTestCase(TestCase):
 
     def test_login(self):
         pass
-
-
-

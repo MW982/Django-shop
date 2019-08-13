@@ -37,14 +37,12 @@ class PassForm(forms.Form):
 
 class UserDataForm(forms.Form):
     username = forms.CharField(required=True)
-    email    = forms.EmailField(required=True)
-    name     = forms.CharField(required=True)
+    email = forms.EmailField(required=True)
+    name = forms.CharField(required=True)
     lastname = forms.CharField(required=True)
-    number   = forms.RegexField(regex='^[1-9][0-9]{2}-?[0-9]{3}-?[0-9]{3}$', required=True)
-    address  = forms.CharField(required=True)
+    number = forms.RegexField(regex='^[1-9][0-9]{2}-?[0-9]{3}-?[0-9]{3}$', required=True)
+    address = forms.CharField(required=True)
 
     class Meta:
         model = User
         fields = ('username', 'email', 'name', 'lastname', 'number', 'address')
-
-

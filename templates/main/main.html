@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE HTML>
+<html lang="en">
   <head>
     {% load static %}
     <meta charset="UTF-8">
@@ -8,7 +8,7 @@
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="{% static 'main/css/materialize.css' %}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato&display=swap&subset=latin-ext"> 
     <!-- Compiled and minified JavaScript -->
     <script src="{% static 'main/js/materialize.js' %}" ></script>
 
@@ -18,7 +18,7 @@
     {% include "main/includes/navbar.html" %} 
 
     {% include "main/includes/messages.html" %}
-    <main> 
+    <main>
       <div class="container" >
         <br>
         {% block content %}

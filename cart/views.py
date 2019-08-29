@@ -4,7 +4,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, redirect, HttpResponseRedirect
 
 from product.models import Product
-from cart.models import TransactionHistory
+from cart.models import Transaction, DiscountCode
 from main.models import User
 from main.forms import UserDataForm
 
@@ -33,6 +33,12 @@ def cart(request):
     print(cookie)
     if request.method == 'POST':
         print('CHECK CART')
+        discounts = DiscountCode.objects.all()
+        code = request.POST.get('discount')
+        for discount in discounts:
+            if code == discount:
+                print('You have a discount')
+
         return redirect('cart:buyPage')
 
     items, totalCost = read_cookie(cookie)
@@ -72,9 +78,9 @@ def buyPage(request):
 
             cookie = request.COOKIES.get('cartIds')
             items, totalCost = read_cookie(cookie)
-            transHistory = TransactionHistory(totalCost=totalCost, items=items, timeHis=time)
-            transHistory.save()
-            user.record.add(transHistory)
+            trans = Transaction(totalCost=totalCost, items=items, timeHis=time)
+            trans.save()
+            user.record.add(trans)
             print(user.record.all())
 
             respone = render(request, 'cart/done.html', {})

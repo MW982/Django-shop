@@ -3,24 +3,23 @@
 {% block content %}
 
 {% for p in Products %} 
-  <div class="row">
-    <div class="col s7 m4">
-      <div class="card" >
-        <div class="card-image">
-          {% load static %}
-          <img src="static/product/{{p.img.url}}" alt="{{p.name}}"> 
-          <span class="card-title">{{p.name}}</span>
-          <a href="/addcart{{p.id}}" class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
-        </div>
-         <div class="card-content">
-          <p>{{p.sdesc}}</p>
-        </div>
-        <div class="card-action">
-          <a href="/{{p.id}}">This is a link</a>
-        </div>
-      </div>
+  <div class="item" >
+    <div class="item-img">
+      {% load static %}
+      <img class="img" src="static/product/{{p.img.url}}" alt="{{p.title}}"> 
     </div>
+     <div class="item-content">
+      <h2 class="item-title">{{p.title}}</h2>
+      <p>{{p.sdesc}}</p>
+    </div>
+    <div class="item-action">
+      <p id="item-price">{{p.price}} $</p>
+      <a class="btn materialize-red" style="margin-top: 170px" href="/addcart{{p.id}}">Add to cart</a>
+    </div>
+  
+    <div style="clear:both;"></div>
   </div>
+  <br/>
 {% endfor %}
 
 {% endblock %} 

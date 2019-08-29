@@ -2,10 +2,19 @@
 
 
 {% block content %}
-  {% csrf_token %}
-  {{form}}
-  <input type="submit" class="btn" value="Submit">
-  <br>
+
+  <div class="row">
+
+    {% include "main/includes/sidebarAcc.html" %}
+
+    <div class="col s10">
+      {% csrf_token %}
+      {{form}}
+      <input type="submit" class="btn" value="Submit">
+      <br>
+    </div>
+  </div>
+  
 {% endblock %} 
 
 

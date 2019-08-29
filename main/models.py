@@ -1,6 +1,6 @@
 import json
 
-from cart.models import TransactionHistory
+from cart.models import Transaction
 
 from uuid import uuid4
 
@@ -13,4 +13,4 @@ class User(AbstractUser):
     linkID = models.UUIDField(primary_key=False, default=uuid4, editable=True, unique=False)
     activated = models.BooleanField(default=False)
     resetTime = models.DateTimeField(default=now, editable=True)
-    record = models.ManyToManyField(TransactionHistory)
+    record = models.ManyToManyField(Transaction)

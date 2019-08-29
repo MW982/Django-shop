@@ -9110,7 +9110,7 @@ input[type=range]::-ms-thumb {
   text-align: center;
   font-weight: bold;
   letter-spacing: 2px;
-  border-bottom: 2px dashed lightgrey;
+  border-bottom: 2px dotted lightgrey;
 }
 
 #item-price {
@@ -9124,7 +9124,7 @@ input[type=range]::-ms-thumb {
 .item-img {
   float: left;
   padding-right: 20px;
-  border-right: 2px dashed lightgrey;
+  border-right: 2px dotted lightgrey;
   /*border: 1px solid lightgrey;*/
 }
 
@@ -9138,7 +9138,7 @@ input[type=range]::-ms-thumb {
   width: 50%;
   min-height: 250px;
   height: 100%;
-  border-right: 2px dashed lightgrey;
+  border-right: 2px dotted lightgrey;
 }
 
 .item-action {
@@ -9164,4 +9164,97 @@ input[type=range]::-ms-thumb {
 
 .sideLeft:hover {
   background-color: rgba(51, 51, 51, 0.08);
+}
+
+.ditemL, .ditemR, .ditem-spec {
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+}
+
+.ditemL {
+  height: 300px;
+}
+
+.ditemR {
+  height: 100px;
+}
+
+.ditem-nav {
+  height: 40px;
+  text-align: center;
+  margin: 0 auto;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+}
+
+.ditem-nav-btn {
+  float: left;
+  margin: auto;
+  text-align: center;
+  padding: 10px;
+}
+
+.ditem-nav-btn a {
+  color: black;
+}
+
+
+.ditem-nav-btn:hover {
+  background-color: red;
+}
+
+.ditem-img {
+  height: 300px;
+  width: 355px;
+  border-right: 1px dotted grey;
+}
+
+.ditem-content {
+  float: left;
+  height: 300px;
+  width: calc(100% - 356.5px);
+}
+
+.ditem-title {
+ border-bottom: 1px dotted grey;
+ margin: 0 auto;
+ width: 100%;
+}
+
+.ditem-title h4 {
+  text-align: center;
+}
+
+.ditem-down {
+
+}
+
+.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 22.5px;
+}
+
+.ditem-spec {
+  height: 1500px;
+}
+
+.ditem {
+  padding: 0px;
+  margin: 0px;
+  height: 1900px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+  padding: 15px;
+}
+
+.ditem-desc {
+
+}
+
+.dtitle {
+  padding: 10px;
+  margin: 0px auto;
+  text-align: center;
+}
+
+.ditemRa {
+  text-align: center;
 }

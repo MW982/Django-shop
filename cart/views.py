@@ -8,6 +8,7 @@ from cart.models import Transaction, DiscountCode
 from main.models import User
 from main.forms import UserDataForm
 
+from decimal import Decimal
 
 def read_cookie(cookie):
     items = []
@@ -30,19 +31,22 @@ def read_cookie(cookie):
 
 def cart(request):
     cookie = request.COOKIES.get('cartIds')
-    print(cookie)
-    if request.method == 'POST':
-        print('CHECK CART')
-        discounts = DiscountCode.objects.all()
-        code = request.POST.get('discount')
-        for discount in discounts:
-            if code == discount:
-                print('You have a discount')
-
-        return redirect('cart:buyPage')
-
     items, totalCost = read_cookie(cookie)
     context = {'Items': items, 'totalCost': totalCost}
+
+    if request.method == 'POST':
+       # print('CHECK CART')
+        discounts = DiscountCode.objects.all()
+        code = request.POST.get('discount')
+        html = redirect('cart:buyPage')
+        for discount in discounts:
+            if code == discount.code:
+                print('You have a discount')
+                cookie = f'{discount.code}/{discount.percent}'
+                html.set_cookie('code', cookie, 1800)
+
+        return html
+
     return render(request, 'cart/cart.html', context)
 
 
@@ -68,26 +72,37 @@ def addCart(request, cart_id):
 
 
 def buyPage(request):
+    cartIds = request.COOKIES.get('cartIds')
+    code = request.COOKIES.get('code')
+    form = UserDataForm
+   # print(code)
+    items, totalCost = read_cookie(cartIds)
+    try:
+        code = code.split('/')
+        totalCost = Decimal(totalCost-totalCost*int(code[1])/100).quantize(Decimal('.01'))
+        context = {'Items': items, 'totalCost': totalCost, 'code': code[0], 'percent': code[1], 'form': form}
+    except:
+        context = {'Items': items, 'totalCost': totalCost, 'form': form}
+        print('error')
+    
     if request.method == 'POST':
         form = UserDataForm(request.POST)
         if form.is_valid():
             time = datetime.datetime.now()
-        #    print('form valid')
+            print('form valid')
             email = form.cleaned_data.get('email')
             user = User.objects.get(email=email)
 
-            cookie = request.COOKIES.get('cartIds')
-            items, totalCost = read_cookie(cookie)
             trans = Transaction(totalCost=totalCost, items=items, timeHis=time)
             trans.save()
             user.record.add(trans)
             print(user.record.all())
 
-            respone = render(request, 'cart/done.html', {})
-            respone.delete_cookie('cartIds')
-            return respone
+            response = render(request, 'cart/done.html', {})
+            response.delete_cookie('cartIds')
+            response.delete_cookie('code')
+            return response
         else:
             print('form invalid')
-
-    form = UserDataForm
-    return render(request, 'cart/buyPage.html', {'form': form})
+    
+    return render(request, 'cart/buyPage.html', context)

@@ -6,30 +6,9 @@
 {% if Items %}
   <div class="row">
     <div class="col s6">
-      <table>
-        <thead>
-          <tr>
-           <th>Name</th>
-           <th>Num</th>
-           <th>Price</th>
-         </tr>
-        </thead>
-        <tbody>
-        {% for item in Items %}
-          <tr>
-          {% for val in item %}
-            <td>{{val}}</td>
-          {% endfor %}
-          </tr>
-        {% endfor %}
-        </tbody>
-        <tfoot>
-          <tr>
-            <td colspan="2">Total cost:</td>
-            <td>{{totalCost}}</td>
-          </tr>
-        </tfoot>
-      </table>
+
+      {% include "cart/includes/table.html" %}
+      
     </div>
     <div class="col s6">
       <form method='POST'>

@@ -1,0 +1,30 @@
+<table>
+  <thead>
+    <tr>
+     <th>Name</th>
+     <th>Num</th>
+     <th>Price</th>
+   </tr>
+  </thead>
+  <tbody>
+  {% for item in Items %}
+    <tr>
+    {% for val in item %}
+      <td>{{val}}</td>
+    {% endfor %}
+    </tr>
+  {% endfor %}
+  </tbody>
+  <tfoot>
+    {% if code %}
+    <tr>
+      <td colspan="2"> Code: {{code}} </td>
+      <td> -{{percent}}% </td>
+    </tr>
+    {% endif %}
+    <tr>
+      <td colspan="2">Total cost:</td>
+      <td>{{totalCost}}</td>
+    </tr>
+  </tfoot>
+</table>

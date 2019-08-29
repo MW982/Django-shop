@@ -1,10 +1,17 @@
 {% extends "main/main.html" %}
 
 {% block content %}
-<form method="POST">
-  {% csrf_token %}
-  {{form}}  
-  <button class="btn" type="submit">Buy</button> 
-</form>
+<div class="row">
+  <div class="col s11">
 
+    {% include "cart/includes/table.html" %}
+    
+    <br>
+    <form method="POST">
+      {% csrf_token %}
+      {{form}}  
+      <button class="btn" type="submit">Buy</button> 
+    </form>
+  </div>
+</div>
 {% endblock %}

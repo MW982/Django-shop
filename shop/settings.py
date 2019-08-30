@@ -62,7 +62,7 @@ ROOT_URLCONF = 'shop.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [ os.path.join(BASE_DIR, 'templates') ],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -111,7 +111,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-#DATETIME_FORMAT = 'Y-m-d H:i'
+# DATETIME_FORMAT = 'Y-m-d H:i'
 
 LANGUAGE_CODE = 'en-us'
 
@@ -127,13 +127,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-#STATIC_ROOT = os.path.join(os.path.abspath(os.path.join(BASE_DIR, 'shop', 'static')), '')
+# STATIC_ROOT = os.path.join(os.path.abspath(os.path.join(BASE_DIR, 'shop', 'static')), '')
 
 STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = 'main.User'
 
-
+LOGIN_URL = '/login/'
 
 
 # Email
@@ -143,6 +143,3 @@ EMAIL_HOST_USER = config['EMAIL_USER']
 EMAIL_HOST_PASSWORD = config['EMAIL_PASS']
 EMAIL_PORT = 465
 EMAIL_USE_SSL = True
-
-
-

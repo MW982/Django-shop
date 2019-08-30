@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 from django.core.exceptions import ObjectDoesNotExist
@@ -63,46 +64,41 @@ def loginView(request):
     return render(request, 'main/login.html', {'form': form})
 
 
+@login_required
 def accountView(request):
     return render(request, 'main/account.html', {})
 
 
+@login_required
 def accountSettingsView(request):
-    if request.user.is_authenticated:
-        form = UserDataForm
-        return render(request, 'main/accountSettings.html', {'form': form})
-    else:
-        return redirect('product:homepage')
+    form = UserDataForm
+    return render(request, 'main/accountSettings.html', {'form': form})
 
 
+@login_required
 def accountTransactionsView(request):
-    if request.user.is_authenticated:
-        user = User.objects.all().get(username=request.user.username)
-        record = []
-        for transaction in user.record.all():
-            record.append(transaction)
-            print(transaction.totalCost)
-        context = {'record': record}
-        print(context)
-        return render(request, 'main/accountTransactions.html', context)
-    else:
-        return redirect('product:homepage')
+    user = User.objects.all().get(username=request.user.username)
+    record = []
+    for transaction in user.record.all():
+        record.append(transaction)
+        print(transaction.totalCost)
+    context = {'record': record}
+    print(context)
+    return render(request, 'main/accountTransactions.html', context)
 
 
+@login_required
 def transactionDetailView(request, trans_id):
-    if request.user.is_authenticated:
-        user = User.objects.all().get(username=request.user.username)
-        transRecord = user.record.get(id=trans_id)
-        print(transRecord.items)
-        record = {}
-        # for item in items:
-        #     name = item[0]
-        #     num = item[1]
-        #     price = item[2]
-        context = {'transRecord': transRecord}
-        return render(request, 'main/transactionDetail.html', context)
-    else:
-        return redirect('product:homepage')
+    user = User.objects.all().get(username=request.user.username)
+    transRecord = user.record.get(id=trans_id)
+    print(transRecord.items)
+    record = {}
+    # for item in items:
+    #     name = item[0]
+    #     num = item[1]
+    #     price = item[2]
+    context = {'transRecord': transRecord}
+    return render(request, 'main/transactionDetail.html', context)
 
 
 def logoutView(request):

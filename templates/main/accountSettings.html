@@ -8,9 +8,11 @@
     {% include "main/includes/sidebarAcc.html" %}
 
     <div class="col s10">
-      {% csrf_token %}
-      {{form}}
-      <input type="submit" class="btn" value="Submit">
+      <form method="POST">
+        {% csrf_token %}
+        {{form}}
+        <input type="submit" class="btn" value="Submit">
+      </form>
       <br>
     </div>
   </div>

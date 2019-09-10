@@ -36,7 +36,7 @@
     <div class="ditem-nav">
       <div class="ditem-nav-btn"><a href="#ditem-d">Description</a></div>
       <div class="ditem-nav-btn"><a href="#ditem-s">Specifications</a></div>
-      <div class="ditem-nav-btn"><a href="#ditem-r">Reviews</a></div>
+      <div class="ditem-nav-btn"><a href="#reviews">Reviews</a></div>
       <div class="ditem-nav-btn"><a href="#ditem-q">Q&A</a></div>
       <div style="clear: both;"></div>
     </div>
@@ -44,8 +44,8 @@
 
   <div class="col s10" style="margin-top: 20px;">
     <div class="ditem">
-      <div class="ditem-desc">
-        <h4 id="ditem-d">Description</h4>
+      <div id="ditem-d">
+        <h4>Description</h4>
         <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas pretium ligula nibh, sed efficitur dolor molestie gravida. Mauris quis mauris gravida mi ultrices elementum nec in quam. Duis quis varius metus, ut eleifend lacus. In eget sem finibus lacus accumsan pretium. Donec purus massa, sodales et odio in, molestie tempor nibh. Duis mattis eu libero et blandit. Mauris diam sem, egestas at accumsan eu, tempor ut mauris. Aenean id odio at justo sodales finibus sed a urna.
         Maecenas dictum mi a neque aliquet ornare. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vivamus vel hendrerit nisl. Duis gravida aliquam facilisis. Nunc facilisis nunc non porta faucibus. Etiam eget nulla nibh. Nullam volutpat massa mi, at facilisis ex aliquam ut. Suspendisse maximus enim vel semper mattis. Pellentesque porta, sem faucibus auctor ullamcorper, nibh nibh cursus ex, ut tristique velit nisl id ante. Maecenas quis augue vel est semper fringilla eu vitae leo. Cras sed cursus quam.
@@ -66,16 +66,45 @@
         </p>
       </div>
       <div id="ditem-s">
-        <h4 id="ditem-s">Specifications</h4>
-      </div>
-      <div id="ditem-r">
-        <h4 id="ditem-r">Reviews</h4>
+        <h4>Specifications</h4>
+        <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas pretium ligula nibh, sed efficitur dolor molestie gravida. Mauris quis mauris gravida mi ultrices elementum nec in quam. Duis quis varius metus, ut eleifend lacus. In eget sem finibus lacus accumsan pretium. Donec purus massa, sodales et odio in, molestie tempor nibh. Duis mattis eu libero et blandit. Mauris diam sem, egestas at accumsan eu, tempor ut mauris. Aenean id odio at justo sodales finibus sed a urna.
+        Maecenas dictum mi a neque aliquet ornare. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vivamus vel hendrerit nisl. Duis gravida aliquam facilisis. Nunc facilisis nunc non porta faucibus. Etiam eget nulla nibh. Nullam volutpat massa mi, at facilisis ex aliquam ut. Suspendisse maximus enim vel semper mattis. Pellentesque porta, sem faucibus auctor ullamcorper, nibh nibh cursus ex, ut tristique velit nisl id ante. Maecenas quis augue vel est semper fringilla eu vitae leo. Cras sed cursus quam.
+        Suspendisse quis tempor ligula. Integer viverra massa sit amet mi dapibus placerat. Cras blandit tincidunt enim, eget pretium nibh placerat ac. Donec dignissim convallis elit, non pellentesque augue scelerisque ullamcorper. Nam finibus quis metus quis luctus. Nullam vitae tortor id sapien tempus ornare a sit amet nibh. Donec egestas ex vitae diam sodales, eu porttitor massa pharetra. Donec varius libero in quam faucibus commodo. Vestibulum eu aliquam nisl. Duis mattis, leo id rhoncus facilisis, urna ex congue nulla, vel luctus odio nibh at ante. Curabitur sollicitudin placerat urna, non cursus mauris gravida ut. Integer ultricies purus vel urna blandit imperdiet gravida et purus. Phasellus convallis mi et lorem ultrices, vitae commodo ex aliquam.
+        </p>
       </div>
       <div id="ditem-q">
-        <h4 id="ditem-q">Q&A</h4>
+        <h4>Q&A</h4>
+        <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas pretium ligula nibh, sed efficitur dolor molestie gravida.
+        </p>
       </div>
     </div>
   </div>
+  <div class="col s10" id="reviews">
+    <div class="reviews">
+        <form method="POST">
+        {% csrf_token %}
+        {{form}}
+        <input type="submit" class="btn" value="Submit">
+      </form>
+    </div>
+  </div>
+
+  {% if reviews %}
+  {% for review in reviews %}
+    <div class="col s10">
+      <div class="reviews">
+        <div class='review'>
+          {{review.review}}
+        </div>
+        <div class='review-user'>
+          {{review.username}}, {{review.date}}
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+  {% endif %}
 </div>
 
 

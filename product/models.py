@@ -2,6 +2,8 @@ import json
 
 from django.db import models
 
+from django.utils.timezone import now
+
 
 class Product(models.Model):
     title = models.CharField(max_length=200)
@@ -33,3 +35,10 @@ class Product(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Review(models.Model):
+    prod_id = models.IntegerField()
+    username = models.CharField(max_length=100)
+    review = models.TextField()
+    date = models.DateField(auto_now_add=True, blank=True)

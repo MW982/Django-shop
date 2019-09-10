@@ -13,4 +13,9 @@ class User(AbstractUser):
     linkID = models.UUIDField(primary_key=False, default=uuid4, editable=True, unique=False)
     activated = models.BooleanField(default=False)
     resetTime = models.DateTimeField(default=now, editable=True)
-    record = models.ManyToManyField(Transaction)
+    record = models.ManyToManyField(Transaction, default=None)
+
+    def __init__(self, *args, **kwargs):
+        super(User, self).__init__(*args, **kwargs)
+        if self.is_superuser:
+            self.activated = True

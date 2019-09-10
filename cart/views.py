@@ -1,5 +1,6 @@
 import datetime
 
+from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, redirect, HttpResponseRedirect
 
@@ -71,6 +72,7 @@ def addCart(request, cart_id):
     return html
 
 
+@login_required
 def buyPage(request):
     cartIds = request.COOKIES.get('cartIds')
     code = request.COOKIES.get('code')
@@ -92,7 +94,7 @@ def buyPage(request):
             print('form valid')
             email = form.cleaned_data.get('email')
             user = User.objects.get(email=email)
-
+            print(items)
             trans = Transaction(totalCost=totalCost, items=items, timeHis=time)
             trans.save()
             user.record.add(trans)

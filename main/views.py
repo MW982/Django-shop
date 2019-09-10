@@ -71,6 +71,14 @@ def accountView(request):
 
 @login_required
 def accountSettingsView(request):
+    if request.method == 'POST':
+        form = UserDataForm(data=request.POST)
+        if form.is_valid():
+            user = User.objects.all().get(username=form.cleaned_data['username'])
+            user.first_name = form.cleaned_data['name']
+            user.last_name = form.cleaned_data['lastname']
+            user.save()
+
     form = UserDataForm
     return render(request, 'main/accountSettings.html', {'form': form})
 

@@ -40,7 +40,7 @@ class UserDataForm(forms.Form):
     email = forms.EmailField(required=True)
     name = forms.CharField(required=True)
     lastname = forms.CharField(required=True)
-    number = forms.RegexField(regex='^[1-9][0-9]{2}-?[0-9]{3}-?[0-9]{3}$', required=True)
+    number = forms.RegexField(regex=r'^[1-9][0-9]{2}-?[0-9]{3}-?[0-9]{3}$', required=True)
     address = forms.CharField(required=True)
 
     class Meta:

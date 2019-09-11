@@ -1,5 +1,6 @@
 {% extends "main/main.html" %}
 
+{% load static %}
 
 {% block content %}
 <form method="POST">
@@ -7,6 +8,9 @@
   {{form.as_p}}
   <a href="/foruser"> Forgot username &nbsp;</a>
   <a href="/forpass"> Forgot password </a><br><br>
+  <a href="{% url 'social:begin' 'github' %}">
+    <img  style="height: 40px"src="{% static 'media/GitHub-Mark-120px-plus.png' %}">
+  </a><br><br>
   <button class="btn" type="submit">Login</button>
 </form>
 {% endblock %}

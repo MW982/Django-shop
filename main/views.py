@@ -77,6 +77,9 @@ def accountSettingsView(request):
             user = User.objects.all().get(username=form.cleaned_data['username'])
             user.first_name = form.cleaned_data['name']
             user.last_name = form.cleaned_data['lastname']
+            user.phone_number = form.cleaned_data['number']
+            user.address = form.cleaned_data['address']
+            
             user.save()
 
     form = UserDataForm

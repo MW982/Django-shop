@@ -8,25 +8,43 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='DiscountCode',
+            name="DiscountCode",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('code', models.CharField(default=None, max_length=100)),
-                ('percent', models.IntegerField(default=10)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("code", models.CharField(default=None, max_length=100)),
+                ("percent", models.IntegerField(default=10)),
             ],
         ),
         migrations.CreateModel(
-            name='Transaction',
+            name="Transaction",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('totalCost', models.DecimalField(decimal_places=2, max_digits=1000000)),
-                ('items', models.TextField(default=None)),
-                ('timeHis', models.DateTimeField(default=django.utils.timezone.now)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "totalCost",
+                    models.DecimalField(decimal_places=2, max_digits=1000000),
+                ),
+                ("items", models.TextField(default=None)),
+                ("timeHis", models.DateTimeField(default=django.utils.timezone.now)),
             ],
         ),
     ]

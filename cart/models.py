@@ -14,6 +14,3 @@ class Transaction(models.Model):
     totalCost = models.DecimalField(max_digits=1000000, decimal_places=2)
     items = models.TextField(default=None)
     timeHis = models.DateTimeField(default=now, editable=True)
-
-    # def __str__(self):
-    #     return items

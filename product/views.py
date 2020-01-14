@@ -19,7 +19,7 @@ from .models import Review
 #     year = datetime.datetime.now().year
 #     transactions = Transaction.objects.filter(timeHis__iso_year=year)
 #     data = [0] * 12
-    
+
 #    # print(transactions)
 #     for transaction in transactions:
 #         data[transaction.timeHis.month-1] += transaction.totalCost
@@ -34,27 +34,26 @@ from .models import Review
 #     return HttpResponse(http)
 
 
-def homepage(request):
-    context = {'Products': Product.objects.all}
-    return render(request, 'product/home.html', context)
+def homepage_view(request):
+    context = {"Products": Product.objects.all}
+    return render(request, "product/home.html", context)
 
 
-def detail(request, p_id):
+def detail_view(request, p_id):
     form = ReviewForm
-    context = {'form': form, 'Product': Product.objects.get(id=p_id)}
-    
-    if request.method == 'POST':
+    context = {"form": form, "Product": Product.objects.get(id=p_id)}
+
+    if request.method == "POST":
         form = ReviewForm(data=request.POST)
         if form.is_valid():
             if request.user.is_authenticated:
-                #print(request.user)
                 user = request.user
-                review = form.cleaned_data.get('review')
+                review = form.cleaned_data.get("review")
                 Review(prod_id=p_id, username=user, review=review).save()
-                context['reviews'] = Review.objects.filter(prod_id=p_id)
-                return render(request, 'product/item.html', context)
+                context["reviews"] = Review.objects.filter(prod_id=p_id)
+                return render(request, "product/item.html", context)
             else:
-                messages.error(request, 'You must log in to add a review!')
+                messages.error(request, "You must log in to add a review!")
 
-    context['reviews'] = Review.objects.filter(prod_id=p_id)
-    return render(request, 'product/item.html', context)
+    context["reviews"] = Review.objects.filter(prod_id=p_id)
+    return render(request, "product/item.html", context)

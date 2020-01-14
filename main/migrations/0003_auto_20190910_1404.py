@@ -7,18 +7,26 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('main', '0002_auto_20190830_1549'),
+        ("main", "0002_auto_20190830_1549"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='user',
-            name='addresss',
+            model_name="user",
+            name="addresss",
             field=models.CharField(blank=True, max_length=300),
         ),
         migrations.AddField(
-            model_name='user',
-            name='phone_number',
-            field=models.CharField(blank=True, max_length=11, validators=[django.core.validators.RegexValidator(regex='^[1-9][0-9]{2}-?[0-9]{3}-?[0-9]{3}$')]),
+            model_name="user",
+            name="phone_number",
+            field=models.CharField(
+                blank=True,
+                max_length=11,
+                validators=[
+                    django.core.validators.RegexValidator(
+                        regex="^[1-9][0-9]{2}-?[0-9]{3}-?[0-9]{3}$"
+                    )
+                ],
+            ),
         ),
     ]

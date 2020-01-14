@@ -8,11 +8,11 @@ class NewUserForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'password1', 'password2')
+        fields = ("username", "email", "password1", "password2")
 
         def save(self, commit=True):
             user = super(NewUserForm, self).save(commit=False)
-            user.email = self.cleaned_data['email']
+            user.email = self.cleaned_data["email"]
             if commit:
                 user.save()
             return user
@@ -23,16 +23,20 @@ class ForgotForm(forms.Form):
 
     class Meta:
         model = User
-        fields = ('email')
+        fields = "email"
 
 
 class PassForm(forms.Form):
-    password1 = forms.CharField(required=True, max_length=50, widget=forms.PasswordInput())
-    password2 = forms.CharField(required=True, max_length=50, widget=forms.PasswordInput())
+    password1 = forms.CharField(
+        required=True, max_length=50, widget=forms.PasswordInput()
+    )
+    password2 = forms.CharField(
+        required=True, max_length=50, widget=forms.PasswordInput()
+    )
 
     class Meta:
         model = User
-        fields = ('password1', 'password2')
+        fields = ("password1", "password2")
 
 
 class UserDataForm(forms.Form):
@@ -40,9 +44,11 @@ class UserDataForm(forms.Form):
     email = forms.EmailField(required=True)
     name = forms.CharField(required=True)
     lastname = forms.CharField(required=True)
-    number = forms.RegexField(regex=r'^[1-9][0-9]{2}-?[0-9]{3}-?[0-9]{3}$', required=True)
+    number = forms.RegexField(
+        regex=r"^[1-9][0-9]{2}-?[0-9]{3}-?[0-9]{3}$", required=True
+    )
     address = forms.CharField(required=True)
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'name', 'lastname', 'number', 'address')
+        fields = ("username", "email", "name", "lastname", "number", "address")

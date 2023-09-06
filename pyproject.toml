@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "django-shop"
+version = "0.1.0"
+description = "Fully-functioning E-commerce platform"
+authors = ["Maksymilian Więckowski <maksw982@gmail.com>"]
+license = "MIT License"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+django = "2.2.8"
+djangorestframework = "3.11.2"
+selenium = "3.141.0"
+social-auth-app-django = "3.1.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
